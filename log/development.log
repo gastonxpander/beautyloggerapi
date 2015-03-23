@@ -1,0 +1,1041 @@
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (2.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150322195358)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150322195358"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateProducts (20150322195404)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "products" ("id" serial primary key, "user_id" integer, "name" character varying, "description" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.6ms)[0m  CREATE  INDEX  "index_products_on_user_id" ON "products"  ("user_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20150322195404"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateReviews (20150322195410)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "reviews" ("id" serial primary key, "product_id" integer, "description" character varying, "rating" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX  "index_reviews_on_product_id" ON "reviews"  ("product_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150322195410"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'products'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'reviews'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+
+
+Started OPTIONS "/auth/register" for ::1 at 2015-03-22 17:14:59 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+AbstractController::ActionNotFound (The action 'options' could not be found for ApplicationController):
+  actionpack (4.2.0) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.0) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.0) lib/action_controller/metal.rb:195:in `dispatch'
+  actionpack (4.2.0) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.0) lib/action_controller/metal.rb:236:in `block in action'
+  actionpack (4.2.0) lib/action_dispatch/routing/route_set.rb:73:in `call'
+  actionpack (4.2.0) lib/action_dispatch/routing/route_set.rb:73:in `dispatch'
+  actionpack (4.2.0) lib/action_dispatch/routing/route_set.rb:42:in `serve'
+  actionpack (4.2.0) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.0) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.0) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.0) lib/action_dispatch/routing/route_set.rb:802:in `call'
+  rack (1.6.0) lib/rack/etag.rb:24:in `call'
+  rack (1.6.0) lib/rack/conditionalget.rb:38:in `call'
+  rack (1.6.0) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.0) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.0) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.0) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.0) lib/active_record/connection_adapters/abstract/connection_pool.rb:647:in `call'
+  activerecord (4.2.0) lib/active_record/migration.rb:378:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:88:in `call'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:88:in `_run_callbacks'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:734:in `_run_call_callbacks'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.0) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.0) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.0) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.0) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.0) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/static.rb:113:in `call'
+  rack (1.6.0) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.0) lib/rails/engine.rb:518:in `call'
+  railties (4.2.0) lib/rails/application.rb:164:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  rack (1.6.0) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.0) lib/rack/handler/webrick.rb:89:in `service'
+  /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+  /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+  /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (1.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (20.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (55.7ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 17:22:15 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"gaston@gaston.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"gaston@gaston.com", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (5.0ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "gaston@gaston.com"], ["password_digest", "$2a$10$NdNuxAJ1Y9S0nT3RjQxTpOVP2yQuLpEegbkYfFKWs.q9wJIu5BmdC"], ["created_at", "2015-03-22 21:22:16.184093"], ["updated_at", "2015-03-22 21:22:16.184093"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Completed 500 Internal Server Error in 104ms
+
+NotImplementedError (Unsupported signing method):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (21.9ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007fd46ad6ff88 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007fd46ad6fa88 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007fd46ad7eee8 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 17:23:49 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"auth"=>{}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 2.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 17:25:23 -0400
+Processing by AuthController#register as HTML
+Can't verify CSRF token authenticity
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 17:25:47 -0400
+Processing by AuthController#register as HTML
+Can't verify CSRF token authenticity
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 17:26:41 -0400
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"gaston@gaston.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"gaston@gaston.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "gaston@gaston.net"], ["password_digest", "$2a$10$WR7IO8q735chdNfxzquUKuZBRWAm.c/7nBTUup4QBIaDIDwGdapwO"], ["created_at", "2015-03-22 21:26:41.571193"], ["updated_at", "2015-03-22 21:26:41.571193"]]
+  [1m[35m (1.5ms)[0m  COMMIT
+Completed 500 Internal Server Error in 83ms
+
+NotImplementedError (Unsupported signing method):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.2ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (18.7ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007ffc7aa73ea0 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007ffc7aa73a40 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007ffc7b63eff0 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 18:10:43 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"gaston@gaston.co", "password"=>"[FILTERED]", "auth"=>{"email"=>"gaston@gaston.co", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36mSQL (6.9ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "gaston@gaston.co"], ["password_digest", "$2a$10$07Qi8yQL/A18KexjMT3XFOi7iYqxly8whIpk/g5mcjcYCDgmjyZwu"], ["created_at", "2015-03-22 22:10:44.297719"], ["updated_at", "2015-03-22 22:10:44.297719"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Completed 500 Internal Server Error in 126ms
+
+NotImplementedError (Unsupported signing method):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (22.9ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007fcd55283f78 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007fcd55283a00 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007fcd54dfeef8 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 18:30:55 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "g@g.net"], ["password_digest", "$2a$10$xO7stv4elEhMub1FICw0QumlHd0iVxOzEAUc4AHTeivkrxtiWkfYW"], ["created_at", "2015-03-22 22:30:55.865312"], ["updated_at", "2015-03-22 22:30:55.865312"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+Completed 500 Internal Server Error in 115ms
+
+NameError (undefined local variable or method `secret' for AuthToken:Module):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.9ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (20.3ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007fc499497f68 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007fc4994979f0 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007fc49b582e80 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 18:31:28 -0400
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "g@g.net"], ["password_digest", "$2a$10$UsPdYQh6ri//ev7JFcU8vubHparyTd1xzZmlOrKC48fAyhlR/nknq"], ["created_at", "2015-03-22 22:31:28.908224"], ["updated_at", "2015-03-22 22:31:28.908224"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 73ms
+
+NameError (undefined local variable or method `secret' for AuthToken:Module):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (38.7ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (53.1ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007fc499497f68 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007fc4994979f0 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007fc49b582e80 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 18:31:55 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "g@g.net"], ["password_digest", "$2a$10$kaJYmzrJ4aFczAYGAqZ8hu0AWiD7lyl7uvLZ9M8umoMXG6IiBIJ9q"], ["created_at", "2015-03-22 22:31:55.471827"], ["updated_at", "2015-03-22 22:31:55.471827"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Completed 500 Internal Server Error in 87ms
+
+NotImplementedError (Unsupported signing method):
+  lib/auth_token.rb:6:in `issue_token'
+  app/controllers/auth_controller.rb:7:in `register'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (19.6ms)
+Cannot render console with content type application/jsonAllowed content types: [#<Mime::Type:0x007fdf5577bf78 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x007fdf5577ba00 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x007fdf54292eb8 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/register" for ::1 at 2015-03-22 18:34:28 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#register as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+Unpermitted parameter: auth
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "g@g.net"], ["password_digest", "$2a$10$j7ouyjqccjFRjqjH0v0jm.hcLdkX0/MhrAp9BIeDj/uAigURKMsXm"], ["created_at", "2015-03-22 22:34:28.662983"], ["updated_at", "2015-03-22 22:34:28.662983"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Completed 200 OK in 88ms (Views: 0.4ms | ActiveRecord: 3.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:35 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (1.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 92ms (Views: 0.7ms | ActiveRecord: 4.0ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:37 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 82ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:39 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 68ms (Views: 0.3ms | ActiveRecord: 0.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:40 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 66ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:40 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (1.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 66ms (Views: 0.4ms | ActiveRecord: 1.0ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:40 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 64ms (Views: 0.3ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:06:59 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 76ms (Views: 0.5ms | ActiveRecord: 0.9ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:07:28 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 77ms (Views: 1.5ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:17:28 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 84ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:17:35 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 71ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:19:48 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 70ms (Views: 0.3ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:20:02 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 66ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:20:06 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 87ms (Views: 0.4ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:20:16 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 65ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:21:38 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 401 Unauthorized in 66ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:21:52 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@r.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@r.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@r.net"]]
+Completed 401 Unauthorized in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:30:53 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@q.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@q.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@q.net"]]
+Completed 401 Unauthorized in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:34:48 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 78ms (Views: 0.6ms | ActiveRecord: 2.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:34:58 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 71ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:35:49 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.net"]]
+Completed 200 OK in 74ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 19:45:54 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 68ms (Views: 2.0ms | ActiveRecord: 0.5ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 22:09:01 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.com", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (3.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@g.com"]]
+Completed 401 Unauthorized in 13ms (Views: 2.1ms | ActiveRecord: 3.7ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 22:09:29 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (2.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 80ms (Views: 3.6ms | ActiveRecord: 2.6ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 22:11:17 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@gg.g", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@gg.g", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "g@gg.g"]]
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: accept, content-type
+Preflight Headers:
+  Content-Type: text/plain
+  Access-Control-Allow-Origin: http://localhost:8000
+  Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS, HEAD
+  Access-Control-Expose-Headers: 
+  Access-Control-Max-Age: 0
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: accept, content-type
+Incoming Headers:
+  Origin: http://localhost:8000
+  Access-Control-Request-Method: 
+  Access-Control-Request-Headers: 
+
+
+Started POST "/auth/authenticate" for ::1 at 2015-03-22 22:11:27 -0400
+Processing by AuthController#authenticate as HTML
+  Parameters: {"email"=>"g@g.net", "password"=>"[FILTERED]", "auth"=>{"email"=>"g@g.net", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "g@g.net"]]
+Completed 200 OK in 63ms (Views: 0.5ms | ActiveRecord: 0.1ms)
