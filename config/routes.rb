@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  # options routing to support angularJS
+  namespace :api, defaults: {format: :json} do
+    resources :users, :products, :reviews
+  end
 
   match '/auth/register',     to: 'auth#register',     via: 'post'
   match '/auth/authenticate', to: 'auth#authenticate', via: 'post'
